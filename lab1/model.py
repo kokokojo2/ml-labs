@@ -15,7 +15,7 @@ class RegressionModel:
     def compute_gradient(true_prediction_vec, estimated_prediction_vec, feature_vec):
         return feature_vec.T.dot(estimated_prediction_vec - true_prediction_vec) / len(true_prediction_vec)
 
-    def update_wages(self, gradient_vec):
+    def update_weights(self, gradient_vec):
         self.weight = self.weight - self.learning_rate * gradient_vec
 
     def fit(self, feature_vec, true_prediction_vec, thresh):
@@ -23,7 +23,7 @@ class RegressionModel:
         while True:
             prediction_vec = self.predict(feature_vec)
             gradient_vec = self.compute_gradient(true_prediction_vec, prediction_vec, feature_vec)
-            self.update_wages(gradient_vec)
+            self.update_weights(gradient_vec)
 
             loss = self._get_loss(true_prediction_vec, prediction_vec)
             loss_delta = abs(self.previous_loss - loss)
